@@ -1,7 +1,7 @@
 # 밀리루틴(MILIROUTINE) - 군생활 루틴 공유
 
 <div align="center">
-    <img src="logo.png" alt="MILIROUTINE Logo" style="padding: 40px 0 40px 0;">
+    <img src="logo.png" alt="MILIROUTINE Logo" width="60%" height="60%">
     <p>군대에서 시작하는, 나의 사소한 루틴 쌓기.<br>지키고 싶은 밀리루틴을 만들고, 함께 인증해보세요!<br><br>
         <a href="https://miliroutine.kr">https://miliroutine.kr</a>
     </p>
