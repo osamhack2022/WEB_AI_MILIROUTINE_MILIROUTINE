@@ -22,7 +22,7 @@
 -   Naver, Google 계정으로도 회원가입이 가능합니다.
 -   습관화하고 싶은 루틴을 정해 모임을 개설할 수 있으며, 관심 있는 모임에 참여하거나 좋아요, 북마크 등을 할 수 있습니다.
 -   루틴을 수행한 뒤 유저가 이미지를 업로드하여 참여를 인증할 수 있습니다. 서비스 운영 측에서 해당 이미지의 사실 여부를 검사합니다. 단, 현금 대신 포인트 등 게이미피케이션 요소를 도입하여 인증 과정이 과도하게 엄밀해지는 것을 방지합니다.
--   같은 모임의 유저끼리 이미지 전달도 가능한 다중 채팅을 지원합니다. '군대에서 해당 루틴을 효과적으로 수행하는 방법', '해당 관심사 관련 군 내 지원혜택'과 같은 정보를 공유할 수 있습니다.
+-   같은 모임의 유저끼리 댓글형 게시판을 지원합니다. '군대에서 해당 루틴을 효과적으로 수행하는 방법', '해당 관심사 관련 군 내 지원혜택'과 같은 정보를 공유할 수 있습니다.
 -   유저가 관심 있어 하는 밀리루틴 정보를 수집하여 AI가 맞춤 루틴을 추천해줍니다.
 -   테마별, 기간별 인기 루틴을 정렬하여 보여줍니다.
 -   그동안 참여했던 모임, 참여율, 자신이 작성한 기록을 모아 보여줍니다.
@@ -47,7 +47,7 @@ git clone https://github.com/osamhack2022/WEB_AI_MILIROUTINE_MILIROUTINE.git
     2. AI가 추천하는 밀리루틴
     3. 내가 직접 만들 수도 있습니다!
 3. **꾸준히 밀리루틴을 지키고 인증하세요.**
-    1. 함께 참여한 사람들과 채팅을 통해 정보를 공유할 수 있습니다.
+    1. 함께 참여하는 사람들과 게시판을 통해 정보를 공유할 수 있습니다.
     2. 참여율에 따라 포인트를 얻을 수 있습니다.
     3. 포인트샵에서 자신이 원하는 상품을 구매해보세요.
 4. **참여중/참여했던 밀리루틴에 후기를 달아 기록해보세요.**
@@ -87,11 +87,11 @@ git clone https://github.com/osamhack2022/WEB_AI_MILIROUTINE_MILIROUTINE.git
 
 | 이름   | 역할                    | 이메일                | 깃허브 ID    |
 | ------ | ----------------------- | --------------------- | ------------ |
-| 권재원 | Frontend 위주           | springkjw@gmail.com   | springkjw    |
-| 김민찬 | Backend 위주            | cmk0487@naver.com     | minchan02    |
-| 박용준 | 빈 곳에 들어가겠습니다… | yongjun0613@naver.com | yoopark      |
-| 이동현 | AI 위주                 | dong97338@gmail.com   | dong97338    |
-| 이시웅 | 디자인, Frontend        | sco3o17@gmail.com     | silverttthin |
+| 권재원 | Frontend 위주           | springkjw@gmail.com   | <a href="https://github.com/springkjw" target="_blank"><img src="https://img.shields.io/badge/springkjw-181717?style=flat-square&logo=github&logoColor=white"/></a>    |
+| 김민찬 | Backend 위주            | cmk0487@naver.com     | <a href="https://github.com/minchan02" target="_blank"><img src="https://img.shields.io/badge/minchan02-181717?style=flat-square&logo=github&logoColor=white"/></a>    |
+| 박용준 | 빈 곳에 들어가겠습니다… | yongjun0613@naver.com | <a href="https://github.com/yoopark" target="_blank"><img src="https://img.shields.io/badge/yoopark-181717?style=flat-square&logo=github&logoColor=white"/></a>      |
+| 이동현 | AI 위주                 | dong97338@gmail.com   | <a href="https://github.com/dong97338" target="_blank"><img src="https://img.shields.io/badge/dong97338-181717?style=flat-square&logo=github&logoColor=white"/></a>    |
+| 이시웅 | 디자인, Frontend        | sco3o17@gmail.com     | <a href="https://github.com/silverttthin" target="_blank"><img src="https://img.shields.io/badge/silverttthin-181717?style=flat-square&logo=github&logoColor=white"/></a> |
 
 -   소스코드 버전 관리 : `Github`
 -   커뮤니케이션 : `Slack`
