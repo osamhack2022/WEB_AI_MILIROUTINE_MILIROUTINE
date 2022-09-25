@@ -73,7 +73,7 @@ git clone https://github.com/osamhack2022/WEB_AI_MILIROUTINE_MILIROUTINE.git
 
 ### AI(Machine Learning)
 
--   `Python`
+-   `Pytorch`
 
 ### CI/CD
 
