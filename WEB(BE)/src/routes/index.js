@@ -1,20 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const ctrl = require('../controllers/home.ctrl');
 
 const signup = require("./signup");
 const login = require("./login");
 const logout = require("./logout");
 
 
-router.get('/', function(req, res){
-	if(req.session.user !== undefined){
-		res.send('로그인 되었네요');
-	}
-	else{
-		res.render('index');
-	}
-})
-
+router.get('/', ctrl.page.showHome);
 
 router.use('/login', login);
 router.use('/signup', signup);

@@ -5,6 +5,13 @@
     <title>Document</title>
 </head>
 <body>
-	여기는 루트입니다.
+    <% if(session.user){ %>
+    <h1> 로그인에 성공했습니다. </h1>
+    <p> <% session.user.name %> 님 환영합니다 </p>
+    <% } else{ %>
+	<p> 로그인 해주십시오 </p>
+    <button type="button" onClick="location.href='/login'">로그인</button>
+    <button type="button" onClick="location.href='/signup'">회원가입</button>
+    <% } %>
 </body>
 </html>	

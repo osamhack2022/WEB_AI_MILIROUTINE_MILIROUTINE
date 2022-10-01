@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>추가 정보</title>
+</head>
+<body>
+	<h1 style = "text-align:center">
+		처음이신가요?	
+		<div>
+			추가 정보를 입력해주세요
+		</div>
+	</h1>
+	
+	<form action = "/signup/more" method="post">
+        <input name="name" type="text" placeholder="성명"><br>
+		<select name="unit">
+			<option value="army">육군</option>
+			<option value="navy">해군</option>
+			<option value="airForce">공군</option>
+		</select><br>
+		<input name="day" type="date" placeholder= "전역일자"><br>
+		<input name="nickname" type="text" placeholder= "닉네임"><br>
+		<input type="submit" value="계정생성">
+	</form>
+		
+</body>
+</html>	

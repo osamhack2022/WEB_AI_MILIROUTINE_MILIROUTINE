@@ -20,22 +20,69 @@ const createHashedPassword = (plainPassword) =>
         });
     }); 
 
-async function registUser(req, res){
-	const { password, salt } = await createHashedPassword(req.body.pw);
+const session = {
+	checkHaveSession : (req) => {
+		if(req.session.user){
+			return true;
+		}
+		
+		else{
+			return false;
+		}
+	},
 	
-	var param = [req.body.id, password, req.body.name, req.body.unit, req.body.email, salt];
-	
-	const userInfo = await data.user.get(req.body.id);
-	
-	if(userInfo.length > 0){
-		return res.render('alert', {error: '아이디가 이미 존재합니다!'});
+	saveSession : (req, rows) =>{
+		req.session.user = rows[0];
+		req.session.save();
 	}
-	
-	data.user.add(req.body.id, param);
-	
-	res.redirect('/');
 }
 
+const page = {
+	goHome : (req, res) =>{
+		res.redirect('/');
+	},
+	
+	showSignup : (req, res) =>{
+		res.render('signup');
+	},
+	
+	showSignmore : (req, res)=>{
+		if(session.checkHaveSession(req)){
+			res.render('signmore');
+		}
+		else{
+			return res.render('alert', {error: '로그인을 해주세요!'});
+		}
+	}
+}
+
+const user = {
+	regist : async(req, res) => {
+		const { password, salt } = await createHashedPassword(req.body.pw);
+	
+		var param = [req.body.id, password, req.body.email, salt, 'NULL', 'NULL'];
+
+		var userInfo = await data.user.get(req.body.id);
+
+		if(userInfo.length > 0){
+			return res.render('alert', {error: '아이디가 이미 존재합니다!'});
+		}
+
+		data.user.add(req.body.id, param);
+
+		userInfo = await data.user.get(req.body.id);
+		session.saveSession(req, userInfo);
+
+		res.redirect('/signup/more');
+	},
+	
+	addInfo : (req, res) => {
+		page.goHome(req, res);
+	}
+}
+
+
 module.exports = {
-    registUser
+	page,
+    user
 };
