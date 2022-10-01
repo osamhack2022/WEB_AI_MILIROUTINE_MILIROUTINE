@@ -18,7 +18,7 @@ const saveSession = (req, res, rows) =>{
 }
 
 const checkUserID = async (req, res) => {
-	const userInfo = await data.user.get('member', req.body.id);
+	const userInfo = await data.user.get(req.body.id);
 	
 	if(userInfo.length > 0){
 			// ID가 존재
