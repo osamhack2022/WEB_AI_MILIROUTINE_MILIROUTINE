@@ -49,7 +49,7 @@ const user = {
 	
 	checkUserInfo : async(req, res) => {
 		if(!session.checkHaveSession(req)){
-			const userInfo = await data.user.get(req.body.id);
+			const userInfo = await data.user.get('id', req.body.id);
 
 			if(userInfo.length > 0){
 					// ID가 존재

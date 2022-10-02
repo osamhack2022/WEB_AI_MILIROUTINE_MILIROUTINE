@@ -21,9 +21,8 @@ const user = {
 	destroy : (req, res) => {
 		if(session.checkHaveSession){
 			req.session.destroy(err => {if(err) console.log(err)});
-			return res.render('alert', {error: '로그아웃 되었습니다!'});
+			// res.render('alert', {error: '로그아웃 되었습니다!', isBack : false});
 		}
-		
 		page.goHome(req, res);
 	}
 }

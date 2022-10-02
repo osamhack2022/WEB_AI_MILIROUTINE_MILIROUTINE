@@ -3,6 +3,9 @@ const data = require('../models/index');
 const crypto = require('crypto');
 const STRETCHINGKEY = 9999;
 
+var userId;
+var param = [];
+
 const createSalt = () =>
 	new Promise((resolve,reject)=>{
 		crypto.randomBytes(64, (err,buf)=>{
@@ -46,37 +49,37 @@ const page = {
 		res.render('signup');
 	},
 	
-	showSignmore : (req, res)=>{
-		if(session.checkHaveSession(req)){
-			res.render('signmore');
-		}
-		else{
-			return res.render('alert', {error: '로그인을 해주세요!'});
-		}
+	showSignmore : (req, res)=>{	
+		res.render('signmore');
 	}
 }
 
 const user = {
 	regist : async(req, res) => {
 		const { password, salt } = await createHashedPassword(req.body.pw);
-	
-		var param = [req.body.id, password, req.body.email, salt, 'NULL', 'NULL'];
+		
+		userId = req.body.id;
+		param = [req.body.id, password, req.body.email, req.body.name, salt];
+		
+		var userInfoWithId = await data.user.get('id', req.body.id);
+		var userInfoWithEmail = await data.user.get('email', req.body.email);
 
-		var userInfo = await data.user.get(req.body.id);
-
-		if(userInfo.length > 0){
-			return res.render('alert', {error: '아이디가 이미 존재합니다!'});
+		if(userInfoWithId.length > 0){
+			return res.render('alert', {error: '이미 사용중인 아이디입니다'});
 		}
-
-		data.user.add(req.body.id, param);
-
-		userInfo = await data.user.get(req.body.id);
-		session.saveSession(req, userInfo);
-
-		res.redirect('/signup/more');
+		
+		if(userInfoWithEmail.length > 0){
+			return res.render('alert', {error: '이미 가입된 이메일입니다'});
+		}
+		
+		 res.redirect('/signup/more');
 	},
 	
-	addInfo : (req, res) => {
+	addInfo : async(req, res) => {
+		data.user.add(param);
+		
+		var userInfo = await data.user.get('id', userId);
+		session.saveSession(req, userInfo);
 		page.goHome(req, res);
 	}
 }

@@ -5,22 +5,30 @@
     <title>추가 정보</title>
 </head>
 <body>
-	<h1 style = "text-align:center">
-		처음이신가요?	
-		<div>
-			추가 정보를 입력해주세요
-		</div>
-	</h1>
+	<h1 style = "text-align:center"> 처음이신가요? </h1>
+	<p style = "text-align:center"> 추가 정보를 입력해주세요 </p>
 	
 	<form action = "/signup/more" method="post">
-        <input name="name" type="text" placeholder="성명"><br>
-		<select name="unit">
-			<option value="army">육군</option>
-			<option value="navy">해군</option>
-			<option value="airForce">공군</option>
+		<h3> 관심 카테고리 설정 </h3>
+		<select name="category">
+			<option value="study">학습</option>
+			<option value="exercise">운동</option>
+			<option value="morning">모닝루틴</option>
+			<option value="economy">경제</option>
+			<option value="selfcare">자기관리</option>
+			<option value="hobby">취미</option>
+			<option value="emotion">정서</option>
+			<option value="health">건강</option>
 		</select><br>
-		<input name="day" type="date" placeholder= "전역일자"><br>
-		<input name="nickname" type="text" placeholder= "닉네임"><br>
+		
+		<h3> 선호하는 밀리루틴을 체크해주세요 </h3>
+		<select name="routine">
+			<option>30분 공부하기</option>
+			<option>백준 한 문제 풀기</option>
+			<option>물 5컵 마시기</option>
+			<option>헬스장 가기</option>
+		</select><br>
+
 		<input type="submit" value="계정생성">
 	</form>
 		
