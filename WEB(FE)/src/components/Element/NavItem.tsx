@@ -1,13 +1,12 @@
-import React from "react";
-
 export interface NavItemProps {
   label: string;
+  margin?: string;
 }
 
-export const NavItem = ({ label }: NavItemProps) => {
+export const NavItem = ({ label, margin }: NavItemProps) => {
   return (
-    <div>
-      <a>{label}</a>
+    <div className={`cursor-pointer${margin ? ` ${margin}` : ""}`}>
+      <a className="text-black">{label}</a>
     </div>
   );
 };
