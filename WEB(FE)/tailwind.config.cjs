@@ -11,6 +11,7 @@ module.exports = {
       },
       gray: {
         300: "#D9D9D9",
+        500: "#777777",
       },
     },
     extend: {},
