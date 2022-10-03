@@ -2,7 +2,7 @@ import { useRoutes } from "react-router-dom";
 
 import { useAuth } from "@/lib/auth";
 import { Landing } from "@/features/misc";
-import { Footer } from "@/components/Element";
+import { Header, Footer } from "@/components/Element";
 import { protectedRoutes } from "./protected";
 import { publicRoutes } from "./public";
 
@@ -17,7 +17,8 @@ export const AppRoutes = () => {
 
   return (
     <>
-      {element}
+      <Header />
+      <div className="flex-1">{element}</div>
       <Footer />
     </>
   );
