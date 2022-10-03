@@ -3,12 +3,13 @@ const router = express.Router();
 const ctrl = require('../controllers/signup.ctrl');
 
 
-router.get('/', function(req, res){
-	res.render('signup');
-})
+router.get('/', ctrl.page.showSignup);
 
-router.post('/', ctrl.registUser);
+router.post('/', ctrl.user.regist);
 
+router.get('/more', ctrl.page.showSignmore);
+
+router.post('/more', ctrl.user.addInfo);
 
 module.exports = router;
 
