@@ -3,7 +3,7 @@ import Logo from "@/assets/Logo.png";
 export const Footer = () => {
   return (
     <footer className="w-screen h-48 flex flex-col items-center justify-center bg-gray-300">
-      <div className="container mx-xl">
+      <div className="container max-w-screen-xl">
         <img src={Logo} className="mb-8" />
 
         <div>
