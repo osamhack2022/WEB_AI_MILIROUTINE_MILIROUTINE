@@ -1,10 +1,9 @@
-import { Header } from "@/components/Element";
+import { Jumbotron } from "@/components/Element";
 
 export const Landing = () => {
   return (
     <>
-      <Header />
-      <div></div>
+      <Jumbotron />
     </>
   );
 };
