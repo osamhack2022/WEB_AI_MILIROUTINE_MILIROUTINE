@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Button } from "@/components/Element";
 
 export interface RoutineItemProps {
@@ -11,11 +12,12 @@ export const RoutineItem = ({
   nickname = "Test Nickname",
   title = "Test Title",
 }: RoutineItemProps) => {
-  const itemSize = `w-${size} h-${size}`;
+  const itemSize = useMemo(() => `w-${size}`, [size]);
+  const imageSize = useMemo(() => `w-${size} h-${size}`, [size]);
 
   return (
     <div className={itemSize}>
-      <div className={`border rounded-xl border-black mb-2 ${itemSize}`} />
+      <div className={`border rounded-xl border-black mb-2 ${imageSize}`} />
       <span className="text-sm text-gray-500">{nickname}</span>
       <h4 className="text-lg text-black font-bold mb-1">{title}</h4>
       <Button label="학습" />
