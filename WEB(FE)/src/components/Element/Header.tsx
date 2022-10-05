@@ -4,8 +4,8 @@ import Logo from "@/assets/Logo.png";
 
 export const Header = () => {
   return (
-    <header className="w-screen h-14 flex items-center justify-center bg-white">
-      <div className="container max-w-screen-xl flex flex-row items-center justify-between">
+    <header className="w-screen flex items-center justify-center bg-white">
+      <div className="container max-w-screen-xl flex flex-row items-center justify-between py-4">
         <div className="flex flex-row items-center justify-center">
           <img src={Logo} />
           <NavItem label="Introduce" margin="ml-12" />
