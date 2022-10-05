@@ -12,7 +12,7 @@ export const RoutineItem = ({
 }: RoutineItemProps) => {
   return (
     <div>
-      <div className="border rounded-xl border-black mb-2 w-40 h-40 bg-white-200" />
+      <div className="border rounded-xl border-black mb-2 w-40 h-40 bg-white-200 shadow-lg" />
       <span className="text-sm text-gray-500">{nickname}</span>
       <h4 className="text-lg text-black font-bold mb-1">{title}</h4>
       <Button label="학습" />
