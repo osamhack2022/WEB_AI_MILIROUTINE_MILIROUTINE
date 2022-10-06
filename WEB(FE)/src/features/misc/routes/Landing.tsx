@@ -6,7 +6,7 @@ import {
   Segment,
 } from "@/components/Element";
 
-export const Landing = () => {
+export const LandingPage = () => {
   const [activeTab, setTab] = useState<string>();
 
   const onSelectedTab = useCallback((value: string) => setTab(value), []);

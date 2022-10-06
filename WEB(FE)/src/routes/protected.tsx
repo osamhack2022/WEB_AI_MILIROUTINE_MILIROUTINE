@@ -1,7 +1,14 @@
 import { Suspense } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
+import { lazyImport } from "@/utils/lazyImport";
 import { MainLayout } from "@/components/Layout";
+
+const { MyRoutes } = lazyImport(() => import("@/features/my"), "MyRoutes");
+const { RoutineRoutes } = lazyImport(
+  () => import("@/features/routine"),
+  "RoutineRoutes"
+);
 
 const App = () => {
   return (
@@ -15,8 +22,12 @@ const App = () => {
 
 export const protectedRoutes = [
   {
-    path: "/app",
+    path: "/",
     element: <App />,
-    children: [{ path: "*", element: <Navigate to="." /> }],
+    children: [
+      { path: "/user/*", element: <MyRoutes /> },
+      { path: "/routine/*", element: <RoutineRoutes /> },
+      { path: "*", element: <Navigate to="." /> },
+    ],
   },
 ];
