@@ -1,18 +1,18 @@
 import torch
 import krpre
 from konlpy.tag import Komoran  # 형태소 분석
-from hanspell import spell_checker  # 네이버 맞춤법 검사
+# from hanspell import spell_checker  # 네이버 맞춤법 검사
 # from pykospacing import spacing  # 띄어쓰기
 import gensim
 from cfg import open
-model = gensim.models.Word2Vec.load('ko.bin')
+model = gensim.models.Word2Vec.load('./AI/ko.bin')
 model.min_count=1  # 단어 하나만 있어도 훈련
 komoran=krpre.komoran()
 
 stopword=krpre.Stopword()
 
 n=0
-with open('r5e_name.txt')as f:
+with open('./AI/r5e_name.txt')as f:
 	for line in f:
 		line = krpre.Clean_text(line)
 		# line = spacing(line)
@@ -41,7 +41,7 @@ with open('r5e_name.txt')as f:
 	# if(n>=50):
 	# 	break
 model.save('kotrain.bin')
-model=gensim.models.Word2Vec.load('kotrain.bin')
+model=gensim.models.Word2Vec.load('./AI/kotrain.bin')
 with open('r5e_name.txt')as f:
 	for line in f:
 		line = krpre.Clean_text(line)

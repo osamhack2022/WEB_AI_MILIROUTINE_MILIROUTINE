@@ -50,7 +50,7 @@ class komoran(Komoran):
 
 class Stopword():  # 불용어 제거
 	def __init__(self):
-		with open('stopwords.txt', encoding='utf8') as f:
+		with open('./AI/stopwords.txt', encoding='utf8') as f:
 			self.stopword = [w[:-1] for w in f]
 	def Remove(self, text):
 		return [w for w in text if w not in self.stopword]
