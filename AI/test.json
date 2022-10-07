@@ -1,0 +1,54 @@
+{
+    "users": [
+        {
+            "nickname": "1",
+            "category_list": ["study", "workout"],
+            "history": ["s1", "s2", "w1", "w3", "m2"]
+        },
+        {
+            "nickname": "2",
+            "category_list": ["morningroutine", "economy"],
+            "history": ["m1", "m2", "m3"]
+        },
+        {
+            "nickname": "3",
+            "category_list": ["study", "workout", "morningroutine", "economy", "selfcare", "dream", "hobby", "emotion", "health"],
+            "history": ["s1", "s2", "w1", "w3", "m2"]
+        },
+        {
+            "nickname": "4",
+            "category_list": ["study", "workout", "morningroutine", "economy", "selfcare", "dream", "hobby", "emotion", "health"],
+            "history": ["s1", "s2", "w1", "w3", "m2"]
+        },
+        {
+            "nickname": "5",
+            "category_list": ["study", "workout", "morningroutine", "economy", "selfcare", "dream", "hobby", "emotion", "health"],
+            "history": ["s1", "s2", "w1", "w3", "m2"]
+        },
+        {
+            "nickname": "6",
+            "category_list": ["study", "workout", "morningroutine", "economy", "selfcare", "dream", "hobby", "emotion", "health"],
+            "history": ["s1", "s2", "w1", "w3", "m2"]
+        },
+        {
+            "nickname": "7",
+            "category_list": ["study", "workout", "morningroutine", "economy", "selfcare", "dream", "hobby", "emotion", "health"],
+            "history": ["s1", "s2", "w1", "w3", "m2"]
+        },
+        {
+            "nickname": "8",
+            "category_list": ["study", "workout", "morningroutine", "economy", "selfcare", "dream", "hobby", "emotion", "health"],
+            "history": ["s1", "s2", "w1", "w3", "m2"]
+        },
+        {
+            "nickname": "9",
+            "category_list": ["study", "workout", "morningroutine", "economy", "selfcare", "dream", "hobby", "emotion", "health"],
+            "history": ["s1", "s2", "w1", "w3", "m2"]
+        },
+        {
+            "nickname": "10",
+            "category_list": ["study", "workout", "morningroutine", "economy", "selfcare", "dream", "hobby", "emotion", "health"],
+            "history": ["s1", "s2", "w1", "w3", "m2"]
+        }
+    ]
+}
