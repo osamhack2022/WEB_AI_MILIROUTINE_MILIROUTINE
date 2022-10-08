@@ -2,11 +2,9 @@ const express = require('express');
 const app = express()
 const bodyParser = require('body-parser');
 const router = require('./src/routes/index')
-
-
 const cors = require('cors');
-const session = require('express-session');
 const cookieParser = require('cookie-parser');
+const jwt = require("jsonwebtoken");
 
 const PORT = 3000;
 
@@ -15,16 +13,8 @@ app.use(cors({
 	credentials : true
 }))
 
+app.use(express.urlencoded({extended:true}))
 app.use(cookieParser());
-app.use(
-	session({
-		key: "loginData",
-		secret: "testSecret",
-		resave: false,
-		saveUninitialized: false,
-	})
-);
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));

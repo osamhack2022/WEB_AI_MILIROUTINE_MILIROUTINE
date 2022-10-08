@@ -1,6 +1,7 @@
 const db = require('../db/config');
 const data = require('../models/index');
 const crypto = require('crypto');
+const jwt = require('../token/jwt');
 const STRETCHINGKEY = 9999;
 
 var userId;
@@ -22,23 +23,6 @@ const createHashedPassword = (plainPassword) =>
             resolve({ password: key.toString('base64'), salt });
         });
     }); 
-
-const session = {
-	checkHaveSession : (req) => {
-		if(req.session.user){
-			return true;
-		}
-		
-		else{
-			return false;
-		}
-	},
-	
-	saveSession : (req, rows) =>{
-		req.session.user = rows[0];
-		req.session.save();
-	}
-}
 
 const page = {
 	goHome : (req, res) =>{
@@ -79,7 +63,7 @@ const user = {
 		data.user.add(param);
 		
 		var userInfo = await data.user.get('id', userId);
-		session.saveSession(req, userInfo);
+		jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
 		page.goHome(req, res);
 	}
 }
