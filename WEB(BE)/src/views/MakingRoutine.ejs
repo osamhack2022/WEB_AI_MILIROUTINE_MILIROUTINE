@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>routine</title>
+</head>
+<body>
+	<h3 style = "text-align:center"> 밀리루틴 개설하기 </h3>
+	
+	<form action = "/make" method="post">
+		<p> 밀리루틴 이름 </p>
+		<input name="name" type="text" placeholder="10자 이내로 입력해주세요"><br>
+		
+		<p> 밀리루틴 카테고리 </p>
+		<select name="category">
+			<option value="study">학습</option>
+			<option value="exercise">운동</option>
+			<option value="morning">모닝루틴</option>
+			<option value="economy">경제</option>
+			<option value="selfcare">자기관리</option>
+			<option value="hobby">취미</option>
+			<option value="emotion">정서</option>
+			<option value="health">건강</option>
+		</select><br>
+		
+		<p> 인증 주기 </p>
+		<select name="auth_cycle">
+			<option value="one">주 1회 </option>
+			<option value="two">주 2회</option>
+			<option value="three">주 3회</option>
+			<option value="four">주 4회</option>
+		</select><br>
+		
+		<p> 루틴 시작일 </p>
+		<input type="start_date"><br>
+		
+		<p> 루틴 진행 기간 </p>
+		<select name="duration">
+			<option value="one">1주</option>
+			<option value="two">2주</option>
+			<option value="three">3주</option>
+			<option value="four">4주</option>
+		</select><br>
+		
+		<input type="file" name="photo"><br>
+		<p> 루틴 대표 이미지를 업로드해주세요 </p>
+		
+		<p> 참여 및 인증 방법을 설명해주세요 </p>
+		<button class ="appendbtn"> 단계 추가 </button>
+		
+		
+		<div class ="container">
+			<p> 1단계 </p>
+			<textarea name="auth_description_1"></textarea><br>
+		</div><br>
+		
+		<button>업로드</button>
+	</form>
+	
+	<script>
+		const maxStep = 5;
+		var i = 1;
+		const myButton = document.querySelector('.appendbtn');
+		const list = document.querySelector('.container');
+		myButton.addEventListener('click', (e)=>{
+			if(i >= maxStep){
+				alert('최대 5개까지만 가능합니다.')
+				return;
+			}
+			
+			e.preventDefault();
+			
+			i++;
+			
+			const myP = document.createElement('p');
+			const myText = document.createElement('textarea');
+			myText.setAttribute("name", "auth_description_" + i);
+			myP.innerHTML = i + '단계';
+			list.appendChild(myP);
+			list.appendChild(myText);
+		})
+		
+	</script>
+</body>
+</html>	

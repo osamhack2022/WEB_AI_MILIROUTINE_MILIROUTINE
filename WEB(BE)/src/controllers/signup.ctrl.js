@@ -56,7 +56,7 @@ const user = {
 			return res.render('alert', {error: '이미 가입된 이메일입니다'});
 		}
 		
-		 res.redirect('/signup/more');
+		 res.redirect('/signup/more/' + userId);
 	},
 	
 	addInfo : async(req, res) => {

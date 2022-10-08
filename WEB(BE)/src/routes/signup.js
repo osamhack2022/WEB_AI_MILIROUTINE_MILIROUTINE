@@ -7,7 +7,7 @@ router.get('/', ctrl.page.showSignup);
 
 router.post('/', ctrl.user.regist);
 
-router.get('/more', ctrl.page.showSignmore);
+router.get('/more/:userId', ctrl.page.showSignmore);
 
 router.post('/more', ctrl.user.addInfo);
 
