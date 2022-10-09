@@ -13,11 +13,6 @@ const createHashedPasswordWithSalt = (plainPassword, salt) =>
     });
 
 const page = {
-	
-	goHome : (req, res) =>{
-		res.redirect('/');
-	},
-	
 	showLogin : (req, res) =>{
 		if(user.isToken(req, res)){
 			return res.render('alert', {error: '이미 로그인 되어있습니다!'});
@@ -39,27 +34,30 @@ const user = {
 				if(userInfo[0].pw == await createHashedPasswordWithSalt(req.body.pw, userInfo[0].salt)){
 					jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
 					
-					const result = {
+					return res.status(201).json({
 						token : req.cookies.token,
 						msg : "success login!"
-					}
 					
-					res.status(200).json(result);
-					
-					// page.goHome(req, res);
+					});
 				}
 				else{
-					return res.render('alert', {error: '비밀번호가 틀렸습니다!'});
+					return res.status(400).json({
+						msg : "비밀번호가 틀렸습니다!"
+					})
 				}
 			}
 
 			else{
-				return res.render('alert', {error: '아이디가 존재하지 않습니다!'});
+				return res.status(400).json({
+					msg : "아이디가 존재하지 않습니다!"
+				})
 			}	
 		}
 		
 		else{
-			return res.render('alert', {error: '이미 로그인 되어있습니다!'});
+			return res.status(403).json({
+				msg : "이미 로그인 되어있습니다!"
+			})
 		}
 
 	},

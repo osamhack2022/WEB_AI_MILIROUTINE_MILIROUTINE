@@ -1,20 +1,7 @@
 const data = require('../models/index');
 const jwt = require('../token/jwt');
-const multer = require("multer");
-const path = require("path");
+
 const maxStep = 5;
-
-var storage = multer.diskStorage({
-	dsetination: function(req, file, cb){
-		cb(null, "public/images/");
-	},
-	filename: function(req, file, cb){
-		const ext = path.extname(file.originalname);
-		cb(null, path.basename(file.originalname, ext) + "-" + Date.now() + ext);
-	},
-});
-
-var upload = multer({storage: storage});
 
 const page = {
 	goHome : (req, res) =>{
@@ -54,8 +41,6 @@ const routine = {
 			return res.render('alert', {error: '로그인을 해주세요!'});
 		}
 		
-		upload.single("image");
-		
 		var auth_description_list = [req.body.auth_description_1, req.body.auth_description_2, req.body.auth_description_3, req.body.auth_description_4, req.body.auth_description_5];
 		
 		let i = 0;
@@ -70,7 +55,7 @@ const routine = {
 		const creator_id = user.getId(req.cookies.token);
 		const title = req.body.name;
 		const category = req.body.category;
-		const image = `/images/${req.body.photo}`;
+		const image = `/images/${req.file.filename}`;
 		const auth_cycle = req.body.auth_cycle;
 		const auth_description = JSON.stringify(auth_description_list);
 		const start_date = req.body.start_date;

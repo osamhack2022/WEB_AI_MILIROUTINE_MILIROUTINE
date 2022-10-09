@@ -7,7 +7,7 @@
 <body>
 	<h3 style = "text-align:center"> 밀리루틴 개설하기 </h3>
 	
-	<form action = "/make" method="post">
+	<form action = "/make" method="post" enctype="multipart/form-data">
 		<p> 밀리루틴 이름 </p>
 		<input name="name" type="text" placeholder="10자 이내로 입력해주세요"><br>
 		
@@ -42,7 +42,7 @@
 			<option value= 4>4주</option>
 		</select><br>
 		
-		<input type="file" name="photo"><br>
+		<input type="file" name="image"><br>
 		<p> 루틴 대표 이미지를 업로드해주세요 </p>
 		
 		<p> 참여 및 인증 방법을 설명해주세요 </p>
