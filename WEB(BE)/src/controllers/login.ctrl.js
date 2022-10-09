@@ -38,8 +38,15 @@ const user = {
 				// ID가 존재
 				if(userInfo[0].pw == await createHashedPasswordWithSalt(req.body.pw, userInfo[0].salt)){
 					jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
-
-					page.goHome(req, res);
+					
+					const result = {
+						token : req.cookies.token,
+						msg : "success login!"
+					}
+					
+					res.status(200).json(result);
+					
+					// page.goHome(req, res);
 				}
 				else{
 					return res.render('alert', {error: '비밀번호가 틀렸습니다!'});

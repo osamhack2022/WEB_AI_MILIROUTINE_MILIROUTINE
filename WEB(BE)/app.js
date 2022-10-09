@@ -24,6 +24,8 @@ app.set('view engine', 'ejs');
 
 app.use(router)
 
+
+
 app.listen(PORT, function(){
-	console.log("Connected on port 3000");
+	console.log("Connected on port " + PORT);
 });

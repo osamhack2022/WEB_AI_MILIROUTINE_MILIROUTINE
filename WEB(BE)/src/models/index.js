@@ -32,7 +32,7 @@ const routine =  {
 
 	
 	add : async(values)=>{
-		db.query('INSERT INTO routine (user_id,name,category,thumbnail,auth_cycle,auth_description_list,start_date,duration,participants,point_info_list) VALUES (?, ?, ?, ?, ?)', values , function(err,rows, fields){
+		db.query('INSERT INTO routine (user_id,name,category,thumbnail,auth_cycle,auth_description_list,start_date,duration,participants,point_info_list) VALUES (?, ?, ?, ?, ?, ? ,?, ?, ?, ?)', values , function(err,rows, fields){
 				if(err) {
 					console.log(err);
 				}
@@ -40,4 +40,7 @@ const routine =  {
 	}
 }
 
-module.exports = {user};
+module.exports = {
+	user,
+	routine
+};
