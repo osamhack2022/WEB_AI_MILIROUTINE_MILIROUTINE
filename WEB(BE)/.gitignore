@@ -1,2 +1,5 @@
-/src/db/.env
-/README.md
+*.env
+
+README.md
+
+node_modules

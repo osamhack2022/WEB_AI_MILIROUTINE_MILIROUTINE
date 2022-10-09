@@ -1,6 +1,7 @@
 const db = require('../db/config');
 const data = require('../models/index');
 const crypto = require('crypto');
+const jwt = require('../token/jwt');
 const STRETCHINGKEY = 9999;
 
 const createHashedPasswordWithSalt = (plainPassword, salt) =>
@@ -11,24 +12,6 @@ const createHashedPasswordWithSalt = (plainPassword, salt) =>
         });
     });
 
-const session = {
-	
-	saveSession : (req, rows) =>{
-		req.session.user = rows[0];
-		req.session.save();
-	},
-	
-	checkHaveSession : (req) => {
-		if(req.session.user){
-			return true;
-		}
-		
-		else{
-			return false;
-		}
-	}
-}
-
 const page = {
 	
 	goHome : (req, res) =>{
@@ -36,7 +19,7 @@ const page = {
 	},
 	
 	showLogin : (req, res) =>{
-		if(session.checkHaveSession(req)){
+		if(user.isToken(req, res)){
 			return res.render('alert', {error: '이미 로그인 되어있습니다!'});
 		}
 		else{
@@ -48,19 +31,27 @@ const page = {
 const user = {
 	
 	checkUserInfo : async(req, res) => {
-		if(!session.checkHaveSession(req)){
-			const userInfo = await data.user.get('id', req.body.id);
-
+		const userInfo = await data.user.get('id', req.body.id);
+		
+		if(!user.isToken(req, res)){
 			if(userInfo.length > 0){
-					// ID가 존재
-					if(userInfo[0].pw == await createHashedPasswordWithSalt(req.body.pw, userInfo[0].salt)){
-						session.saveSession(req, userInfo);
-						page.goHome(req, res);
+				// ID가 존재
+				if(userInfo[0].pw == await createHashedPasswordWithSalt(req.body.pw, userInfo[0].salt)){
+					jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
+					
+					const result = {
+						token : req.cookies.token,
+						msg : "success login!"
 					}
-					else{
-						return res.render('alert', {error: '비밀번호가 틀렸습니다!'});
-					}
+					
+					res.status(200).json(result);
+					
+					// page.goHome(req, res);
 				}
+				else{
+					return res.render('alert', {error: '비밀번호가 틀렸습니다!'});
+				}
+			}
 
 			else{
 				return res.render('alert', {error: '아이디가 존재하지 않습니다!'});
@@ -71,6 +62,16 @@ const user = {
 			return res.render('alert', {error: '이미 로그인 되어있습니다!'});
 		}
 
+	},
+	
+	isToken : (req, res) => {
+		if(req.cookies.token){
+			return true;
+		}
+		
+		else{
+			return false;
+		}
 	}
 }
 
