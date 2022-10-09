@@ -49,15 +49,24 @@ const user = {
 		var userInfoWithEmail = await data.user.get('email', req.body.email);
 
 		if(userInfoWithId.length > 0){
-			return res.render('alert', {error: '이미 사용중인 아이디입니다'});
+			return res.status(400).json({
+				msg : "이미 사용중인 아이디입니다!"
+			})
 		}
 		
 		if(userInfoWithEmail.length > 0){
-			return res.render('alert', {error: '이미 가입된 이메일입니다'});
+			return res.status(400).json({
+				msg : "이미 사용중인 이메일입니다!"
+			})
 		}
 		
 		
-		 // res.redirect('/signup/more/' + userId);
+		return res.status(201).json({
+			param : param,
+			msg : "1차 회원가입 완료"
+		})
+		
+		page.showSignmore(req,res);
 	},
 	
 	addInfo : async(req, res) => {
@@ -65,7 +74,13 @@ const user = {
 		
 		var userInfo = await data.user.get('id', userId);
 		jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
-		page.goHome(req, res);
+		
+		return res.status(201).json({
+			token : req.cookies.token,
+			msg : "success signup"
+		})
+		
+		// page.goHome(req, res);
 	}
 }
 

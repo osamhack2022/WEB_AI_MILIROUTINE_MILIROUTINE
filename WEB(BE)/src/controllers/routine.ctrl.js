@@ -66,7 +66,12 @@ const routine = {
 		var param = [creator_id , title, category, image, auth_cycle, auth_description, start_date, duration, participants, point_info_list];;
 		data.routine.add(param);
 		
-		page.goHome(req, res);
+		return res.status(201).json({
+			routine : param,
+			msg : "루틴 개설 완료!"
+		})
+		
+		// page.goHome(req, res);
 	}
 }
 

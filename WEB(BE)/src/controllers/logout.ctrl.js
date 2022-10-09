@@ -7,7 +7,12 @@ const page = {
 const user = {
 	destroy : (req, res) => {
 		res.clearCookie('token');
-		page.goHome(req, res);
+		
+		return res.status(201).json({
+			msg : "로그아웃 완료"
+		})
+		
+		// page.goHome(req, res);
 	}
 }
 
