@@ -8,9 +8,7 @@ const logout = require("./logout");
 const routine = require("./routine");
 
 
-router.get('/', function(req, res){
-	console.log("home page");
-});
+router.get('/', ctrl.page.goHome);
 
 
 router.use('/login', login);

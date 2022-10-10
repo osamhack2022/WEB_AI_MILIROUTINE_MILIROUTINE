@@ -15,13 +15,14 @@ const token = {
 			expiresIn: expireTimeOfMinute + "m",
 		});
 		
-		res.cookie('token', token, {maxAge :  1000 * 60 * expireTimeOfMinute});
+		
+		return token;
 	
 	},
 	
 	decode : (token) => {
 		if(!token){
-			return res.status(403).json({
+			return res.status(419).json({
 				msg : "토큰이 없거나 만료되었습니다."
 			});
 		}

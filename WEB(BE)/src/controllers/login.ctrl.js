@@ -21,23 +21,23 @@ const user = {
 			if(userInfo.length > 0){
 				// ID가 존재
 				if(userInfo[0].pw == await createHashedPasswordWithSalt(req.body.pw, userInfo[0].salt)){
-					jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
+					const token = jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
 					
 					return res.json({
-						token : req.cookies.token,
-						msg : "success login!"
-					
+						token : token, // token을 전달하고 client가 token을 헤더에 저장
+						user : userInfo[0],
+						msg : "로그인에 성공했습니다!"
 					});
 				}
 				else{
-					return res.json({
+					return res.status(401).json({
 						msg : "비밀번호가 틀렸습니다!"
 					})
 				}
 			}
 
 			else{
-				return res.json({
+				return res.status(401).json({
 					msg : "아이디가 존재하지 않습니다!"
 				})
 			}	
@@ -45,24 +45,51 @@ const user = {
 		
 		else{
 			return res.status(403).json({
-				msg : "이미 로그인 되어있습니다!"
+				msg : "이미 로그인 되어있습니다!",
+				isLogin : true
 			})
 		}
 
 	},
 	
 	isToken : (req, res) => {
-		if(req.cookies.token){
-			return true;
+		try{
+			if(req.headers.authorization && req.headers.authorization.split(' ')[1]){
+				return true;
+			}
+
+			else{
+				return false;
+			}
+		}
+		
+		catch(err){
+			console.log(err);
+			return false;
+		}
+		
+	}
+}
+
+const page = {
+	goLogin : (req, res) => {
+		if(user.isToken(req, res)){
+			res.json({
+				msg : "이미 로그인이 되어있습니다!",
+				isLogin : true
+			})
 		}
 		
 		else{
-			return false;
+			res.json({
+				isLogin : false
+			})
 		}
-	}
+	},
 }
 
 
 module.exports = {
+	page,
 	user
 };

@@ -2,7 +2,9 @@ const user = {
 	destroy : (req, res) => {
 		res.clearCookie('token');
 		
-		return res.json({
+		// 로그아웃 시키기 => jwt 토큰을 파괴 or 만료??
+		
+		res.json({
 			msg : "로그아웃 완료"
 		})
 	}

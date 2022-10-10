@@ -60,16 +60,54 @@ const user = {
 		data.user.add(param);
 		
 		var userInfo = await data.user.get('id', userId);
-		jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
+		const token = jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
 		
-		return res.status(201).json({
-			token : req.cookies.token,
-			msg : "success signup"
+		return res.json({
+			token : token,
+			user : userInfo[0],
+			msg : "회원가입에 성공했습니다!"
 		})
+	},
+	
+	isToken : (req, res) => {
+		try{
+			if(req.headers.authorization && req.headers.authorization.split(' ')[1]){
+				return true;
+			}
+
+			else{
+				return false;
+			}
+		}
+		
+		catch(err){
+			console.log(err);
+			return false;
+		}
+		
 	}
 }
 
+const page = {
+	goSignup : (req, res) => {
+		if(user.isToken(req, res)){
+			return res.json({
+				msg : "로그인이 되어있습니다!",
+				isLogin : true
+			})
+		}
+		
+		else{
+			return res.json({
+				isLogin : false
+			})
+		}
+	},
+}
+
+
 
 module.exports = {
-    user
+    user,
+	page
 };

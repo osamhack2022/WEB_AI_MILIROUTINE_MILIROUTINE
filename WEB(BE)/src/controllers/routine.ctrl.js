@@ -5,20 +5,32 @@ const maxStep = 5;
 
 const user = {
 	isToken : (req, res) => {
-		if(req.cookies.token){
-			return true;
+		try{
+			if(req.headers.authorization && req.headers.authorization.split(' ')[1]){
+				return true;
+			}
+
+			else{
+				return false;
+			}
 		}
 		
-		else{
+		catch(err){
+			console.log(err);
 			return false;
 		}
+		
 	},
 	
-	getId : (token) => {
-		if(!token){
-			return;
+	getId : (req, res) => {
+		if(!user.isToken(req, res)){
+			res.json({
+				msg : '로그인을 해주세요!',
+				isLogin : false
+			})
 		}
 		
+		const token = req.headers.authorization.split(' ')[1];
 		const decode = jwt.token.decode(token);
 		
 		return decode.id;
@@ -28,10 +40,10 @@ const user = {
 const routine = {
 	make : (req, res) =>{
 		
-		
-		if(!user.isToken){
+		if(!user.isToken(req, res)){
 			return res.json({
-				msg : "로그인을 해주세요!"
+				msg : "로그인을 해주세요!",
+				isLogin : false
 			})
 		}
 		
@@ -46,7 +58,7 @@ const routine = {
 			i++;
 		}
 		
-		const creator_id = user.getId(req.cookies.token);
+		const creator_id = user.getId(req, res);
 		const title = req.body.name;
 		const category = req.body.category;
 		const image = `/images/${req.file.filename}`;
@@ -54,10 +66,9 @@ const routine = {
 		const auth_description = JSON.stringify(auth_description_list);
 		const start_date = req.body.start_date;
 		const duration = req.body.duration;
-		const participants = 1; // 변경 예정
 		const point_info_list = 'NULL'; // 변경 예정
 		
-		var param = [creator_id , title, category, image, auth_cycle, auth_description, start_date, duration, participants, point_info_list];;
+		var param = [creator_id , title, category, image, auth_cycle, auth_description, start_date, duration, point_info_list];;
 		data.routine.add(param);
 		
 		return res.json({

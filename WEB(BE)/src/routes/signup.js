@@ -3,9 +3,7 @@ const router = express.Router();
 const ctrl = require('../controllers/signup.ctrl');
 
 
-router.get('/', function(req, res){
-	console.log("1차 회원가입 페이지")
-});
+router.get('/', ctrl.page.goSignup);
 
 router.post('/', ctrl.user.regist);
 

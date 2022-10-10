@@ -3,9 +3,7 @@ const router = express.Router();
 const ctrl = require('../controllers/login.ctrl');
 
 
-router.get('/', function(req, res){
-	console.log("login page");
-});
+router.get('/', ctrl.page.goLogin);
 
 router.post('/', ctrl.user.checkUserInfo);
 

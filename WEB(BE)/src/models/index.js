@@ -12,7 +12,7 @@ const user =  {
 
 	
 	add : async(values)=>{
-		db.query('INSERT INTO member (id,pw,email,name,salt) VALUES (?, ?, ?, ?, ?)', values , function(err,rows, fields){
+		db.query('INSERT INTO member (id,pw,email,nickname,salt) VALUES (?, ?, ?, ?, ?)', values , function(err,rows, fields){
 				if(err) {
 					console.log(err);
 				}
@@ -32,7 +32,7 @@ const routine =  {
 
 	
 	add : async(values)=>{
-		db.query('INSERT INTO routine (user_id,name,category,thumbnail,auth_cycle,auth_description_list,start_date,duration,participants,point_info_list) VALUES (?, ?, ?, ?, ?, ? ,?, ?, ?, ?)', values , function(err,rows, fields){
+		db.query('INSERT INTO routine (host,name,category,thumbnail_img,auth_cycle,auth_description_list,start_date,duration,point_info_list) VALUES (?, ?, ?, ?, ?, ? ,?, ?, ?, ?)', values , function(err,rows, fields){
 				if(err) {
 					console.log(err);
 				}
