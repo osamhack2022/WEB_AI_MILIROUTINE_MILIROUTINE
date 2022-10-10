@@ -17,7 +17,9 @@ var storage = multer.diskStorage({
 
 var upload = multer({storage: storage});
 
-router.get('/', ctrl.page.showMakingRoutine);
+router.get('/', function(req, res){
+	console.log("routine 개설 페이지");
+});
 
 router.post('/', upload.single("image"), ctrl.routine.make);
 

@@ -3,16 +3,6 @@ const jwt = require('../token/jwt');
 
 const maxStep = 5;
 
-const page = {
-	goHome : (req, res) =>{
-		res.redirect('/');
-	},
-	
-	showMakingRoutine : (req, res) =>{
-		res.render('MakingRoutine');
-	}
-}
-
 const user = {
 	isToken : (req, res) => {
 		if(req.cookies.token){
@@ -37,8 +27,12 @@ const user = {
 
 const routine = {
 	make : (req, res) =>{
+		
+		
 		if(!user.isToken){
-			return res.render('alert', {error: '로그인을 해주세요!'});
+			return res.json({
+				msg : "로그인을 해주세요!"
+			})
 		}
 		
 		var auth_description_list = [req.body.auth_description_1, req.body.auth_description_2, req.body.auth_description_3, req.body.auth_description_4, req.body.auth_description_5];
@@ -66,16 +60,13 @@ const routine = {
 		var param = [creator_id , title, category, image, auth_cycle, auth_description, start_date, duration, participants, point_info_list];;
 		data.routine.add(param);
 		
-		return res.status(201).json({
+		return res.json({
 			routine : param,
 			msg : "루틴 개설 완료!"
 		})
-		
-		// page.goHome(req, res);
 	}
 }
 
 module.exports = {
-	page,
 	routine
 }

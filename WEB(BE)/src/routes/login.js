@@ -3,7 +3,9 @@ const router = express.Router();
 const ctrl = require('../controllers/login.ctrl');
 
 
-router.get('/', ctrl.page.showLogin);
+router.get('/', function(req, res){
+	console.log("login page");
+});
 
 router.post('/', ctrl.user.checkUserInfo);
 

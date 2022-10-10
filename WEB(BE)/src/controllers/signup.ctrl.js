@@ -24,22 +24,9 @@ const createHashedPassword = (plainPassword) =>
         });
     }); 
 
-const page = {
-	goHome : (req, res) =>{
-		res.redirect('/');
-	},
-	
-	showSignup : (req, res) =>{
-		res.render('signup');
-	},
-	
-	showSignmore : (req, res)=>{	
-		res.render('signmore');
-	}
-}
-
 const user = {
 	regist : async(req, res) => {
+		// id, pw, email, name
 		const { password, salt } = await createHashedPassword(req.body.pw);
 		
 		userId = req.body.id;
@@ -49,24 +36,24 @@ const user = {
 		var userInfoWithEmail = await data.user.get('email', req.body.email);
 
 		if(userInfoWithId.length > 0){
-			return res.status(400).json({
+			return res.json({
 				msg : "이미 사용중인 아이디입니다!"
 			})
 		}
 		
 		if(userInfoWithEmail.length > 0){
-			return res.status(400).json({
+			return res.json({
 				msg : "이미 사용중인 이메일입니다!"
 			})
 		}
 		
 		
-		return res.status(201).json({
-			param : param,
+		return res.json({
+			result : param,
 			msg : "1차 회원가입 완료"
 		})
 		
-		page.showSignmore(req,res);
+		// go signmore
 	},
 	
 	addInfo : async(req, res) => {
@@ -79,13 +66,10 @@ const user = {
 			token : req.cookies.token,
 			msg : "success signup"
 		})
-		
-		// page.goHome(req, res);
 	}
 }
 
 
 module.exports = {
-	page,
     user
 };

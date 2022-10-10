@@ -13,7 +13,7 @@ const page = {
 			decoded = false;
 		}
 		
-		res.render('index', {user : decoded});	
+		// res.render('index', {user : decoded});	
 	}
 }
 

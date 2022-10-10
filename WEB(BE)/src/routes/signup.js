@@ -3,11 +3,15 @@ const router = express.Router();
 const ctrl = require('../controllers/signup.ctrl');
 
 
-router.get('/', ctrl.page.showSignup);
+router.get('/', function(req, res){
+	console.log("1차 회원가입 페이지")
+});
 
 router.post('/', ctrl.user.regist);
 
-router.get('/more/:userId', ctrl.page.showSignmore);
+router.get('/more/:userId', function(req, res){
+	console.log("2차 회원가입 페이지")
+});
 
 router.post('/more', ctrl.user.addInfo);
 

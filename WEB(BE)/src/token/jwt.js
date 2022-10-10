@@ -21,8 +21,9 @@ const token = {
 	
 	decode : (token) => {
 		if(!token){
-			console.log('gone token');
-			return;
+			return res.status(403).json({
+				msg : "토큰이 없거나 만료되었습니다."
+			});
 		}
 		 return jwt.verify(token, process.env.SECRET_KEY);
 	}
