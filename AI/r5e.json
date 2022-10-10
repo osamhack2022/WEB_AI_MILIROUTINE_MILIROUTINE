@@ -1,0 +1,154 @@
+{
+    "routines": [
+        {
+            "name": "30분 공부하기",
+            "category": "study",
+            "registrations": 123
+        },
+        {
+            "name": "백준 한 문제 풀기",
+            "category": "study",
+            "registrations": 8
+        },
+        {
+            "name": "영어 단어 40개 외우기",
+            "category": "study",
+            "registrations": 12
+        },
+        {
+            "name": "자격증 공부하기",
+            "category": "study",
+            "registrations": 54
+        },
+        {
+            "name": "헬스장 가기",
+            "category": "workout",
+            "registrations": 95
+        },
+        {
+            "name": "연병장 한 바퀴 뛰기",
+            "category": "workout",
+            "registrations": 50
+        },
+        {
+            "name": "푸시업 하기",
+            "category": "workout",
+            "registrations": 0
+        },
+        {
+            "name": "윗몸일으키기 하기",
+            "category": "workout",
+            "registrations": 1
+        },
+        {
+            "name": "아침 유산소 운동하기",
+            "category": "morningroutine",
+            "registrations": 46
+        },
+        {
+            "name": "할 일 3가지 쓰기",
+            "category": "morningroutine",
+            "registrations": 8
+        },
+        {
+            "name": "차 마시기",
+            "category": "morningroutine",
+            "registrations": 123
+        },
+        {
+            "name": "지출 기록하기",
+            "category": "economy",
+            "registrations": 12
+        },
+        {
+            "name": "저축하기",
+            "category": "economy",
+            "registrations": 54
+        },
+        {
+            "name": "예산 설정하기",
+            "category": "economy",
+            "registrations": 95
+        },
+        {
+            "name": "자기 전 이닦기",
+            "category": "selfcare",
+            "registrations": 50
+        },
+        {
+            "name": "핸드크림 바르기",
+            "category": "selfcare",
+            "registrations": 6
+        },
+        {
+            "name": "샤워 후 바디로션 바르기",
+            "category": "selfcare",
+            "registrations": 98
+        },
+        {
+            "name": "자기 전 세안하기",
+            "category": "selfcare",
+            "registrations": 212
+        },
+        {
+            "name": "뉴스레터 밀리지 않고 읽기",
+            "category": "dream",
+            "registrations": 3
+        },
+        {
+            "name": "인강듣기",
+            "category": "dream",
+            "registrations": 33
+        },
+        {
+            "name": "TED 강연보기",
+            "category": "dream",
+            "registrations": 7
+        },
+        {
+            "name": "책 읽기",
+            "category": "hobby",
+            "registrations": 14
+        },
+        {
+            "name": "블로그에 글 포스팅하기",
+            "category": "hobby",
+            "registrations": 85
+        },
+        {
+            "name": "악기 연습하기",
+            "category": "hobby",
+            "registrations": 30
+        },
+        {
+            "name": "하루 한 번 하늘보기",
+            "category": "emotion",
+            "registrations": 141
+        },
+        {
+            "name": "세줄 일기 적기",
+            "category": "emotion",
+            "registrations": 29
+        },
+        {
+            "name": "하루 5분 명상",
+            "category": "emotion",
+            "registrations": 17
+        },
+        {
+            "name": "물 5컵 마시기",
+            "category": "health",
+            "registrations": 58
+        },
+        {
+            "name": "영양제 먹기",
+            "category": "health",
+            "registrations": 11
+        },
+        {
+            "name": "금연하기",
+            "category": "health",
+            "registrations": 31
+        }
+    ]
+}
