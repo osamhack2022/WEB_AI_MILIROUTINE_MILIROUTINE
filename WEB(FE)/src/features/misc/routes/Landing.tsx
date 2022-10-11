@@ -5,6 +5,7 @@ import {
   Carousel,
   Segment,
 } from "@/components/Element";
+import { MainLayout } from "@/components/Layout";
 
 export const LandingPage = () => {
   const [activeTab, setTab] = useState<string>();
@@ -12,7 +13,7 @@ export const LandingPage = () => {
   const onSelectedTab = useCallback((value: string) => setTab(value), []);
 
   return (
-    <>
+    <MainLayout>
       <Jumbotron />
 
       <section className="w-screen flex flex-col items-center justify-center my-24">
@@ -100,6 +101,6 @@ export const LandingPage = () => {
           <RoutineItem />
         </Carousel>
       </section>
-    </>
+    </MainLayout>
   );
 };
