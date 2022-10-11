@@ -14,6 +14,7 @@ module.exports = {
         400: "#AAAAAA",
         500: "#777777",
       },
+      blue: "#0066FF",
     },
     extend: {},
   },
