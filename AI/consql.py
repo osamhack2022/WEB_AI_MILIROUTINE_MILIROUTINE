@@ -28,7 +28,7 @@ charset='utf8'
 def ex(q):
     con=pymysql.connect(host=host, user=user, passwd=password, db=database, port=port, use_unicode=True, charset='utf8')
     cur=con.cursor()
-    cur.execute('SELECT * FROM user_routine WHERE user_no=1')
+    cur.execute(q)
     ret=cur.fetchall()
     con.close()
     return ret
