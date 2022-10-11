@@ -1,15 +1,20 @@
-import * as React from "react";
+import { ReactNode } from "react";
+import { Header, Footer } from "@/components/Element";
 
 type MainLayoutProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
   return (
-    <div className="h-screen flex overflow-hidden bg-gray-100">
-      <main className="flex-1 relative overflow-y-auto focus:outline-none">
-        {children}
-      </main>
-    </div>
+    <>
+      <Header />
+      <div className="h-screen flex flex-1 overflow-hidden bg-gray-100">
+        <main className="flex-1 relative overflow-y-auto focus:outline-none">
+          {children}
+        </main>
+      </div>
+      <Footer />
+    </>
   );
 };

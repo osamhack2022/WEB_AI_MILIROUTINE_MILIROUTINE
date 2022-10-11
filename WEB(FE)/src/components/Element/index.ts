@@ -5,3 +5,4 @@ export { Jumbotron } from "./Jumbotron";
 export { RoutineItem } from "./RoutineItem";
 export { Carousel } from "./Carousel";
 export { Segment } from "./Segment";
+export { Form } from "./Form";
