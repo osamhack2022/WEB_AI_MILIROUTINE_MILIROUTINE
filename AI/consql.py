@@ -1,5 +1,5 @@
 import pymysql
-import a5t  # sql 아이디 비밀번호(코드스페이스에만, 커밋x)
+import a5t  # sql 아이디 비밀번호(코드스페이스에만, 커밋x) 
 
 host="52.79.92.84"
 user=a5t.user
