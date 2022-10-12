@@ -18,9 +18,9 @@ export const AppRoutes = () => {
   // const element = useRoutes([...routes, ...commonRoutes]);
 
   const element = useRoutes([
+    ...commonRoutes,
     ...protectedRoutes,
     ...publicRoutes,
-    ...commonRoutes,
   ]);
 
   return <>{element}</>;
