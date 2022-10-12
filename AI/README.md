@@ -7,7 +7,7 @@
 ### 전처리
 -  konlpy==0.5.2 (Komoran)
 -  py-hanspell==1.1
--  emoji==0.6.0
+-  emoji==1.7.0 (멤버함수 get_emoji_regexp()가 최신버전에서 사용되지 않음)
 
 ## 레이어 구조
 ```mermaid
