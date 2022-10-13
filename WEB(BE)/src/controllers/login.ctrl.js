@@ -15,8 +15,15 @@ const createHashedPasswordWithSalt = (plainPassword, salt) =>
 const user = {
 	
 	checkUserInfo : async(req, res) => {
-		const userInfo = await data.user.get('id', req.body.id);
 		
+		if(!req.body.id){
+			return res.status(401).json({
+				err : "ID가 없습니다."
+			})
+		}
+		
+		const userInfo = await data.user.get('id', req.body.id);
+
 		if(!user.isToken(req, res)){
 			if(userInfo.length > 0){
 				// ID가 존재
@@ -31,21 +38,21 @@ const user = {
 				}
 				else{
 					return res.status(401).json({
-						msg : "비밀번호가 틀렸습니다!"
+						err : "비밀번호가 틀렸습니다!"
 					})
 				}
 			}
 
 			else{
 				return res.status(401).json({
-					msg : "아이디가 존재하지 않습니다!"
+					err : "아이디가 존재하지 않습니다!"
 				})
 			}	
 		}
 		
 		else{
 			return res.status(403).json({
-				msg : "이미 로그인 되어있습니다!",
+				err : "이미 로그인 되어있습니다!",
 				isLogin : true
 			})
 		}
@@ -71,25 +78,6 @@ const user = {
 	}
 }
 
-const page = {
-	goLogin : (req, res) => {
-		if(user.isToken(req, res)){
-			res.json({
-				msg : "이미 로그인이 되어있습니다!",
-				isLogin : true
-			})
-		}
-		
-		else{
-			res.json({
-				isLogin : false
-			})
-		}
-	},
-}
-
-
 module.exports = {
-	page,
 	user
 };

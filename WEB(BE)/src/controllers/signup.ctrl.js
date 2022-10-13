@@ -4,9 +4,6 @@ const crypto = require('crypto');
 const jwt = require('../token/jwt');
 const STRETCHINGKEY = 9999;
 
-var userId;
-var param = [];
-
 const createSalt = () =>
 	new Promise((resolve,reject)=>{
 		crypto.randomBytes(64, (err,buf)=>{
@@ -29,44 +26,62 @@ const user = {
 		// id, pw, email, name
 		const { password, salt } = await createHashedPassword(req.body.pw);
 		
-		userId = req.body.id;
-		param = [req.body.id, password, req.body.email, req.body.name, salt];
+		const userId = req.body.id;
+		const userPassword = password;
+		const userEmail = req.body.email;
+		const userName = req.body.name;
+
+		const param = [userId, userPassword, userEmail, userName, salt]
 		
-		var userInfoWithId = await data.user.get('id', req.body.id);
-		var userInfoWithEmail = await data.user.get('email', req.body.email);
+		for(const item of param){
+			if(!item){
+				return res.status(401).json({
+					err : item + "의 값이 없습니다!"
+				})
+			}
+		}
+		
+		const userInfoWithId = await data.user.get('id', req.body.id);
+		const userInfoWithEmail = await data.user.get('email', req.body.email);
 
 		if(userInfoWithId.length > 0){
-			return res.json({
-				msg : "이미 사용중인 아이디입니다!"
+			return res.status(401).json({
+				err : "이미 사용중인 아이디입니다!"
 			})
 		}
 		
 		if(userInfoWithEmail.length > 0){
-			return res.json({
-				msg : "이미 사용중인 이메일입니다!"
+			return res.status(401).json({
+				err : "이미 사용중인 이메일입니다!"
 			})
 		}
 		
-		
-		return res.json({
-			result : param,
-			msg : "1차 회원가입 완료"
-		})
-		
-		// go signmore
-	},
-	
-	addInfo : async(req, res) => {
 		data.user.add(param);
 		
-		var userInfo = await data.user.get('id', userId);
-		const token = jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
+		const token = jwt.token.create(req, res, userId, userName);
 		
 		return res.json({
 			token : token,
-			user : userInfo[0],
+			user : param,
 			msg : "회원가입에 성공했습니다!"
 		})
+	},
+	
+	addInfo : async(req, res) => {
+		if(!user.isToken(req, res)){
+			const token = req.headers.authorization.split(' ')[1]
+			const userId = jwt.decode(token).id
+		}
+		else{
+			return res.status(401).json({
+				err : "회원가입을 먼저 해주세요!"
+			})
+		}
+		
+		const user_no = data.user.get('id', userId).no;
+		
+		data.user_category.add(user_no, req.body.category);
+		
 	},
 	
 	isToken : (req, res) => {
@@ -84,30 +99,10 @@ const user = {
 			console.log(err);
 			return false;
 		}
-		
 	}
 }
 
-const page = {
-	goSignup : (req, res) => {
-		if(user.isToken(req, res)){
-			return res.json({
-				msg : "로그인이 되어있습니다!",
-				isLogin : true
-			})
-		}
-		
-		else{
-			return res.json({
-				isLogin : false
-			})
-		}
-	},
-}
-
-
 
 module.exports = {
-    user,
-	page
+    user
 };

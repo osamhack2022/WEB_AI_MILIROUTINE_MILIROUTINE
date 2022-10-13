@@ -20,28 +20,4 @@ const user = {
 	}
 }
 
-const page = {
-	goHome : (req, res) => {
-		let decoded;
-		
-		if(user.isToken(req, res)){
-			const token = req.headers.authorization.split(' ')[1];
-			decoded = jwt.token.decode(token);
-			
-			res.json({
-				id : decoded.userId,
-				name : decoded.userName,
-				isLogin : true
-			})
-		}
-		else{
-			decoded = false;
-			
-			res.json({
-				isLogin : false
-			})
-		}
-	}
-}
-
-module.exports = {page};
+module.exports = {user};

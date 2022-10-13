@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const path = require('path');
-const expireTimeOfMinute = 40; // 분 단위
+const EXPIRETIMEOFMINUTE = 40; // 분 단위
 
 require('dotenv').config({path:path.join(__dirname, '.env')});
 
@@ -12,7 +12,7 @@ const token = {
 			id : userId,
 			name : userName
 		}, process.env.SECRET_KEY, {
-			expiresIn: expireTimeOfMinute + "m",
+			expiresIn: EXPIRETIMEOFMINUTE + "m",
 		});
 		
 		
