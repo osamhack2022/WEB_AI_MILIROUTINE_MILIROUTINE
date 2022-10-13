@@ -38,7 +38,8 @@ print(routine)
 # line = krpre.Clean_text(line)
 # line = komoran.nouns(line, 0)
 # line = stopword.Remove(line)
-model.build_vocab(routine, update=True)
+model.build_vocab(routine, update=True)\
+	
 model.train(routine,total_examples=model.corpus_count,epochs=model.iter)
 # n+=1
 # if(n>=50):
@@ -48,11 +49,6 @@ model.save('./AI/kosql.bin')
 model=gensim.models.Word2Vec.load('./AI/kosql.bin')
 
 for r in routine:
-	r = krpre.Clean_text(r)
-	# r = spacing(r)
-	# r = spell_checker.check(r).checked
-	r = komoran.nouns(r, 0)
-	r = stopword.Remove(r)
 	print(r)
 	for w in r:
 		if w in model.wv.vocab:
