@@ -12,71 +12,72 @@ const createHashedPasswordWithSalt = (plainPassword, salt) =>
         });
     });
 
-const page = {
-	
-	goHome : (req, res) =>{
-		res.redirect('/');
-	},
-	
-	showLogin : (req, res) =>{
-		if(user.isToken(req, res)){
-			return res.render('alert', {error: '이미 로그인 되어있습니다!'});
-		}
-		else{
-			res.render('login');
-		}	
-	}
-}
-
 const user = {
 	
 	checkUserInfo : async(req, res) => {
-		const userInfo = await data.user.get('id', req.body.id);
 		
+		if(!req.body.id){
+			return res.status(401).json({
+				err : "ID가 없습니다."
+			})
+		}
+		
+		const userInfo = await data.user.get('id', req.body.id);
+
 		if(!user.isToken(req, res)){
 			if(userInfo.length > 0){
 				// ID가 존재
 				if(userInfo[0].pw == await createHashedPasswordWithSalt(req.body.pw, userInfo[0].salt)){
-					jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
+					const token = jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
 					
-					const result = {
-						token : req.cookies.token,
-						msg : "success login!"
-					}
-					
-					res.status(200).json(result);
-					
-					// page.goHome(req, res);
+					return res.json({
+						token : token, // token을 전달하고 client가 token을 헤더에 저장
+						user : userInfo[0],
+						msg : "로그인에 성공했습니다!"
+					});
 				}
 				else{
-					return res.render('alert', {error: '비밀번호가 틀렸습니다!'});
+					return res.status(401).json({
+						err : "비밀번호가 틀렸습니다!"
+					})
 				}
 			}
 
 			else{
-				return res.render('alert', {error: '아이디가 존재하지 않습니다!'});
+				return res.status(401).json({
+					err : "아이디가 존재하지 않습니다!"
+				})
 			}	
 		}
 		
 		else{
-			return res.render('alert', {error: '이미 로그인 되어있습니다!'});
+			return res.status(403).json({
+				err : "이미 로그인 되어있습니다!",
+				isLogin : true
+			})
 		}
 
 	},
 	
 	isToken : (req, res) => {
-		if(req.cookies.token){
-			return true;
+		try{
+			if(req.headers.authorization && req.headers.authorization.split(' ')[1]){
+				return true;
+			}
+
+			else{
+				return false;
+			}
 		}
 		
-		else{
+		catch(err){
+			console.log(err);
 			return false;
 		}
+		
 	}
 }
 
-
 module.exports = {
-	page,
 	user
 };
