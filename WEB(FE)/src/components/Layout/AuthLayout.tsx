@@ -1,26 +1,26 @@
-import { ReactNode, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import { Footer } from "@/components/Element";
-import Logo from "@/assets/Logo.png";
+import { ReactNode, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Footer } from '@/components/Element';
+import Logo from '@/assets/Logo.svg';
 
 type AuthLayoutProps = {
-  children: ReactNode;
+    children: ReactNode;
 };
 
 export const AuthLayout = ({ children }: AuthLayoutProps) => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const goToHome = useCallback(() => {
-    navigate("/");
-  }, []);
+    const goToHome = useCallback(() => {
+        navigate('/');
+    }, []);
 
-  return (
-    <>
-      <header className="w-screen flex items-center justify-center bg-white py-8">
-        <img src={Logo} onClick={goToHome} className="cursor-pointer" />
-      </header>
-      {children}
-      <Footer />
-    </>
-  );
+    return (
+        <>
+            <header className="w-screen flex items-center justify-center bg-white py-8">
+                <img src={Logo} onClick={goToHome} className="cursor-pointer" />
+            </header>
+            {children}
+            <Footer />
+        </>
+    );
 };
