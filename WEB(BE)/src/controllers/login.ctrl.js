@@ -28,7 +28,7 @@ const user = {
 			if(userInfo.length > 0){
 				// ID가 존재
 				if(userInfo[0].pw == await createHashedPasswordWithSalt(req.body.pw, userInfo[0].salt)){
-					const token = jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
+					const token = jwt.token.create(req, res, userInfo[0].no, userInfo[0].id, userInfo[0].name);
 					
 					return res.json({
 						token : token, // token을 전달하고 client가 token을 헤더에 저장

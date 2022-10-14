@@ -25,7 +25,7 @@ const user = {
 	getId : (req, res) => {
 		if(!user.isToken(req, res)){
 			res.json({
-				msg : '로그인을 해주세요!',
+				err : '로그인을 해주세요!',
 				isLogin : false
 			})
 		}
