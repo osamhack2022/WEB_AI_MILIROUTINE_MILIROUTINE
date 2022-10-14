@@ -23,7 +23,6 @@ const createHashedPassword = (plainPassword) =>
 
 const user = {
 	regist : async(req, res) => {
-		// id, pw, email, name
 		const { password, salt } = await createHashedPassword(req.body.pw);
 		
 		const userId = req.body.id;
@@ -78,7 +77,7 @@ const user = {
 			})
 		}
 		
-		const user_no = data.user.get('id', userId).no;
+		const user_no = await data.user.get('id', userId).no;
 		
 		data.user_category.add(user_no, req.body.category);
 		

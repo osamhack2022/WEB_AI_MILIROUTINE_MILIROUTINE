@@ -77,10 +77,10 @@ const routine = {
 		})
 	},
 	
-	output : (req, res) => {
+	output : async (req, res) => {
 		const routineId = req.params.routineId;
 		
-		const param = data.routine.get('id', routineId);
+		const param = await data.routine.get('id', routineId);
 		
 		res.json({
 			routine_id : routineId,

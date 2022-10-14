@@ -29,7 +29,7 @@ const createHashedPasswordWithSalt = (plainPassword, salt) =>
     });
 
 const output = {
-	mine : (req, res)=>{
+	mine : async (req, res)=>{
 		if(!user.isToken(req, res)){
 			return res.json({
 				err : '로그인을 해주세요!',
@@ -42,12 +42,40 @@ const output = {
 		
 		const host = decoded.no;
 		
-		const param = data.routine.get('host', host);
+		const param = await data.routine.get('host', host);
 		
 		res.json({
 			routine : param
 		})
-	}
+	},
+	
+	like : async (req, res)=>{
+		if(!user.isToken(req, res)){
+			return res.status(403).json({
+				err : '로그인을 해주세요!',
+				isLogin : false
+			})
+		}
+		
+		const token = req.headers.authorization.split(' ')[1];
+		const decoded = jwt.decode(token)
+		
+		const myRoutine = await data.user_routine.get('user_no',40)
+		const likeRoutineId = [];
+		
+		console.log(myRoutine);
+		
+		for(const routine of myRoutine){
+			if(routine.type == 'like'){
+				likeRoutineId.push(routine.routine_id);
+			}
+		}
+		
+		res.json({
+			msg : '좋아요한 루틴 추출 완료!',
+			likeRoutineID : likeRoutineId
+		})
+	} 
 }
 
 const user = {
@@ -111,8 +139,14 @@ const user = {
 			data.user.update('salt', salt, decoded.id);
 			
 			return res.json({
-			msg : '비밀번호 수정 완료!'
-		})
+				msg : '비밀번호 수정 완료!'
+			})
+		}
+		
+		else{
+			return res.status(401).json({
+				err : '원래 비밀번호와 같습니다!'
+			})
 		}
 	},
 	
