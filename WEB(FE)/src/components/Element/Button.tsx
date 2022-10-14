@@ -1,27 +1,23 @@
 export interface ButtonProps {
+    text?: string;
     label: string;
     margin?: string;
     onClick?: () => void;
 }
 
-export const Button = ({ label, margin, onClick }: ButtonProps) => {
+export const Button = ({ text='text-base', label, margin, onClick }: ButtonProps) => {
+    let px: string = '';
+    let py: string = '';
+    if (text === 'text-xs' || text === 'text-base') {
+        px = 'px-5';
+        py = 'py-1.5';
+    } else if (text === 'text-xl') {
+        px = 'px-10';
+        py = 'py-3';
+    }
     return (
         <button
-            className={`bg-orange text-white-100 font-bold rounded-full px-5 py-1.5${
-                margin ? ` ${margin}` : ''
-            }`}
-            onClick={onClick}
-        >
-            {label}
-        </button>
-    );
-};
-
-export const BigButton = ({ label, margin, onClick }: ButtonProps) => {
-    return (
-        <button
-            className={`bg-orange text-white-100 font-bold text-xl rounded-full px-8 py-3${
-                margin ? ` ${margin}` : ''
+            className={`bg-orange text-white-100 ${text} font-bold rounded-full ${px} ${py} ${margin ? `${margin}` : ''
             }`}
             onClick={onClick}
         >
