@@ -1,4 +1,3 @@
-import torch
-a=torch.randn(4,4)
-print(a)
-print(torch.mean(a,0))
+import consql as cs
+ret=cs.ex('SELECT * FROM user_routine WHERE user_no=1')
+print(ret)
