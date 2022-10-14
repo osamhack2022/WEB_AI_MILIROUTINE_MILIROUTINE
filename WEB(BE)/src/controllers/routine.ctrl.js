@@ -1,47 +1,36 @@
 const data = require('../models/index');
 const jwt = require('../token/jwt');
-const multer = require("multer");
-const path = require("path");
+
 const maxStep = 5;
-
-var storage = multer.diskStorage({
-	dsetination: function(req, file, cb){
-		cb(null, "public/images/");
-	},
-	filename: function(req, file, cb){
-		const ext = path.extname(file.originalname);
-		cb(null, path.basename(file.originalname, ext) + "-" + Date.now() + ext);
-	},
-});
-
-var upload = multer({storage: storage});
-
-const page = {
-	goHome : (req, res) =>{
-		res.redirect('/');
-	},
-	
-	showMakingRoutine : (req, res) =>{
-		res.render('MakingRoutine');
-	}
-}
 
 const user = {
 	isToken : (req, res) => {
-		if(req.cookies.token){
-			return true;
+		try{
+			if(req.headers.authorization && req.headers.authorization.split(' ')[1]){
+				return true;
+			}
+
+			else{
+				return false;
+			}
 		}
 		
-		else{
+		catch(err){
+			console.log(err);
 			return false;
 		}
+		
 	},
 	
-	getId : (token) => {
-		if(!token){
-			return;
+	getId : (req, res) => {
+		if(!user.isToken(req, res)){
+			res.json({
+				msg : '로그인을 해주세요!',
+				isLogin : false
+			})
 		}
 		
+		const token = req.headers.authorization.split(' ')[1];
 		const decode = jwt.token.decode(token);
 		
 		return decode.id;
@@ -50,11 +39,13 @@ const user = {
 
 const routine = {
 	make : (req, res) =>{
-		if(!user.isToken){
-			return res.render('alert', {error: '로그인을 해주세요!'});
-		}
 		
-		upload.single("image");
+		if(!user.isToken(req, res)){
+			return res.status(403).json({
+				err : "로그인을 해주세요!",
+				isLogin : false
+			})
+		}
 		
 		var auth_description_list = [req.body.auth_description_1, req.body.auth_description_2, req.body.auth_description_3, req.body.auth_description_4, req.body.auth_description_5];
 		
@@ -67,25 +58,37 @@ const routine = {
 			i++;
 		}
 		
-		const creator_id = user.getId(req.cookies.token);
-		const title = req.body.name;
+		const host = data.user.get('id',user.getId(req, res)).no;
+		const name = req.body.name;
 		const category = req.body.category;
-		const image = `/images/${req.body.photo}`;
+		const image = req.body.fileUrl; //`/images/${req.file.filename}`
 		const auth_cycle = req.body.auth_cycle;
 		const auth_description = JSON.stringify(auth_description_list);
 		const start_date = req.body.start_date;
 		const duration = req.body.duration;
-		const participants = 1; // 변경 예정
 		const point_info_list = 'NULL'; // 변경 예정
 		
-		var param = [creator_id , title, category, image, auth_cycle, auth_description, start_date, duration, participants, point_info_list];;
+		const param = [host , name, category, image, auth_cycle, auth_description, start_date, duration, point_info_list];;
 		data.routine.add(param);
 		
-		page.goHome(req, res);
+		return res.json({
+			routine : param,
+			msg : "루틴 개설 완료!"
+		})
+	},
+	
+	output : (req, res) => {
+		const routineId = req.params.routineId;
+		
+		const param = data.routine.get('id', routineId);
+		
+		res.json({
+			routine_id : routineId,
+			routine : param
+		})
 	}
 }
 
 module.exports = {
-	page,
 	routine
 }

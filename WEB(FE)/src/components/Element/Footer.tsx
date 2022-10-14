@@ -11,8 +11,7 @@ export const Footer = () => {
                         2022 OSAM 군장병 해커톤 밀리루틴 팀의 프로젝트입니다.
                     </p>
                     <p className="text-black text-sm">
-                        프로젝트 개발과 관련된 자세한 내용은 MILIROUTINE Github
-                        Repository를 참고해주세요.
+                        프로젝트 개발과 관련된 자세한 내용은 <a className='font-bold underline decoration-1' href='https://github.com/osamhack2022/WEB_AI_MILIROUTINE_MILIROUTINE'>MILIROUTINE Github Repository</a>를 참고해주세요.
                     </p>
                 </div>
             </div>

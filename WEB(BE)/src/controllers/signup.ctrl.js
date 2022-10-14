@@ -4,9 +4,6 @@ const crypto = require('crypto');
 const jwt = require('../token/jwt');
 const STRETCHINGKEY = 9999;
 
-var userId;
-var param = [];
-
 const createSalt = () =>
 	new Promise((resolve,reject)=>{
 		crypto.randomBytes(64, (err,buf)=>{
@@ -24,52 +21,88 @@ const createHashedPassword = (plainPassword) =>
         });
     }); 
 
-const page = {
-	goHome : (req, res) =>{
-		res.redirect('/');
-	},
-	
-	showSignup : (req, res) =>{
-		res.render('signup');
-	},
-	
-	showSignmore : (req, res)=>{	
-		res.render('signmore');
-	}
-}
-
 const user = {
 	regist : async(req, res) => {
+		// id, pw, email, name
 		const { password, salt } = await createHashedPassword(req.body.pw);
 		
-		userId = req.body.id;
-		param = [req.body.id, password, req.body.email, req.body.name, salt];
+		const userId = req.body.id;
+		const userPassword = password;
+		const userEmail = req.body.email;
+		const userName = req.body.name;
+
+		const param = [userId, userPassword, userEmail, userName, salt]
 		
-		var userInfoWithId = await data.user.get('id', req.body.id);
-		var userInfoWithEmail = await data.user.get('email', req.body.email);
+		for(const item of param){
+			if(!item){
+				return res.status(401).json({
+					err : item + "의 값이 없습니다!"
+				})
+			}
+		}
+		
+		const userInfoWithId = await data.user.get('id', req.body.id);
+		const userInfoWithEmail = await data.user.get('email', req.body.email);
 
 		if(userInfoWithId.length > 0){
-			return res.render('alert', {error: '이미 사용중인 아이디입니다'});
+			return res.status(401).json({
+				err : "이미 사용중인 아이디입니다!"
+			})
 		}
 		
 		if(userInfoWithEmail.length > 0){
-			return res.render('alert', {error: '이미 가입된 이메일입니다'});
+			return res.status(401).json({
+				err : "이미 사용중인 이메일입니다!"
+			})
 		}
 		
-		 res.redirect('/signup/more/' + userId);
+		data.user.add(param);
+		
+		const token = jwt.token.create(req, res, userId, userName);
+		
+		return res.json({
+			token : token,
+			user : param,
+			msg : "회원가입에 성공했습니다!"
+		})
 	},
 	
 	addInfo : async(req, res) => {
-		data.user.add(param);
+		if(!user.isToken(req, res)){
+			const token = req.headers.authorization.split(' ')[1]
+			const userId = jwt.decode(token).id
+		}
+		else{
+			return res.status(401).json({
+				err : "회원가입을 먼저 해주세요!"
+			})
+		}
 		
-		var userInfo = await data.user.get('id', userId);
-		jwt.token.create(req, res, userInfo[0].id, userInfo[0].name);
-		page.goHome(req, res);
+		const user_no = data.user.get('id', userId).no;
+		
+		data.user_category.add(user_no, req.body.category);
+		
+	},
+	
+	isToken : (req, res) => {
+		try{
+			if(req.headers.authorization && req.headers.authorization.split(' ')[1]){
+				return true;
+			}
+
+			else{
+				return false;
+			}
+		}
+		
+		catch(err){
+			console.log(err);
+			return false;
+		}
 	}
 }
 
 
 module.exports = {
-	page,
     user
 };

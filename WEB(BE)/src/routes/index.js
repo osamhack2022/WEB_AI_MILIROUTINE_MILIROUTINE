@@ -4,17 +4,18 @@ const ctrl = require('../controllers/home.ctrl');
 
 const signup = require("./signup");
 const login = require("./login");
-const logout = require("./logout");
 const routine = require("./routine");
+const user = require("./user");
+
+router.get('/', function(req, res){
+	console.log("home");
+});
 
 
-router.get('/', ctrl.page.showHome);
-
-
-router.use('/login', login);
-router.use('/signup', signup);
-router.use('/logout', logout);
-router.use('/make', routine);
+router.use('/auth/login', login);
+router.use('/auth/signup', signup);
+router.use('/routine', routine);
+router.use('/user', user);
 
 
 

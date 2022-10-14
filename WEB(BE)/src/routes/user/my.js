@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const ctrl = require("../controllers/logout.ctrl");
+const ctrl = require("../../controllers/user.ctrl");
 
-router.get('/', ctrl.user.destroy);
+router.get('/my', ctrl.output.mine);
+
 
 module.exports = router;
+

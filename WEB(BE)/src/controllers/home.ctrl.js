@@ -1,20 +1,23 @@
 const jwt = require('../token/jwt');
 
-const page = {
-	showHome : (req, res) => {
-		const token = req.cookies.token;
-		
-		let decoded;
-		
-		if(token){
-			decoded = jwt.token.decode(token);
+const user = {
+	isToken : (req, res) => {
+		try{
+			if(req.headers.authorization && req.headers.authorization.split(' ')[1]){
+				return true;
+			}
+
+			else{
+				return false;
+			}
 		}
-		else{
-			decoded = false;
+		
+		catch(err){
+			console.log(err);
+			return false;
 		}
 		
-		res.render('index', {user : decoded});	
 	}
 }
 
-module.exports = {page};
+module.exports = {user};
