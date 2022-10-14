@@ -14,3 +14,8 @@ body {
   display: flex;
   flex-direction: column;
 }
+
+::selection {
+  background-color: #262626;
+  color: white;
+}
