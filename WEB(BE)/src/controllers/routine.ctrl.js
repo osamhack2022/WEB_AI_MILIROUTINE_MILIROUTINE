@@ -71,6 +71,12 @@ const routine = {
 		const param = [host , name, category, image, auth_cycle, auth_description, start_date, duration, point_info_list];;
 		data.routine.add(param);
 		
+		const routine_id = data.routine.get('host', host).id// 만약 routine 이름이 중복 가능일 경우 변경 필요
+		const type = 'join';
+		
+		const param2 = [host, routine_id, type];
+		data.user_routine.add(param2);
+		
 		return res.json({
 			routine : param,
 			msg : "루틴 개설 완료!"

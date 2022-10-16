@@ -63,8 +63,6 @@ const output = {
 		const myRoutine = await data.user_routine.get('user_no',40)
 		const likeRoutineId = [];
 		
-		console.log(myRoutine);
-		
 		for(const routine of myRoutine){
 			if(routine.type == 'like'){
 				likeRoutineId.push(routine.routine_id);
@@ -75,7 +73,15 @@ const output = {
 			msg : '좋아요한 루틴 추출 완료!',
 			likeRoutineID : likeRoutineId
 		})
-	} 
+	},
+	
+	auth : (req, res) => {
+		const routine = data.routine.get('id', req.params.userId);
+		
+		res.json({
+			routine : routine
+		})
+	}
 }
 
 const user = {
@@ -168,7 +174,46 @@ const user = {
 	}
 }
 
+const routine = {
+	auth : (req, res) => {
+		
+		if(!user.isToken(req, res)){
+			return res.status(403).json({
+				err : '로그인을 해주세요!',
+				isLogin : false
+			})
+		}
+		
+		const token = req.headers.authorization.split(' ')[1];
+		const decoded = jwt.decode(token)
+		
+		try{
+			const user_no = decoded.id;
+			const routine_id = req.params.routineId;
+			/* week, day, date, img ,text 받아오기 */
+			const week = req.body.week;
+			const day = req.body.day;
+			const date = req.body.date; 
+			const img = req.body.img;
+			const text = req.body.text;
+
+			const param = [user_no, routine_id, week, day, date, img, text]
+			data.auth.add(param);
+			
+			return res.json({
+				msg : 'routine 인증 완료!'
+			})
+		}
+		catch{
+			return res.status(401).json({
+				msg : 'routine 인증 실패!'
+			})
+		}
+	}
+}
+
 module.exports = {
 	output,
-	user
+	user,
+	routine
 }
