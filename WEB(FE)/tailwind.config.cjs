@@ -15,8 +15,16 @@ module.exports = {
                 500: '#777777',
             },
             blue: '#0066FF',
+            green : '#5EC14E',
         },
-        extend: {},
+        extend: {
+          width: {
+            '420' : '420px',
+          },
+          padding: {
+            '515' : '515px',
+          },
+        },
     },
     plugins: [],
 };
