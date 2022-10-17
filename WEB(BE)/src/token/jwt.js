@@ -5,10 +5,11 @@ const EXPIRETIMEOFMINUTE = 40; // 분 단위
 require('dotenv').config({path:path.join(__dirname, '.env')});
 
 const token = {
-	create : (req, res, userId, userName) => {
+	create : (req, res, userNo, userId, userName) => {
 		
 		const token = jwt.sign({
 			type: "JWT",
+			no : userNo,
 			id : userId,
 			name : userName
 		}, process.env.SECRET_KEY, {

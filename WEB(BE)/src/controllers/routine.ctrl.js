@@ -25,7 +25,7 @@ const user = {
 	getId : (req, res) => {
 		if(!user.isToken(req, res)){
 			res.json({
-				msg : '로그인을 해주세요!',
+				err : '로그인을 해주세요!',
 				isLogin : false
 			})
 		}
@@ -71,16 +71,22 @@ const routine = {
 		const param = [host , name, category, image, auth_cycle, auth_description, start_date, duration, point_info_list];;
 		data.routine.add(param);
 		
+		const routine_id = data.routine.get('host', host).id// 만약 routine 이름이 중복 가능일 경우 변경 필요
+		const type = 'join';
+		
+		const param2 = [host, routine_id, type];
+		data.user_routine.add(param2);
+		
 		return res.json({
 			routine : param,
 			msg : "루틴 개설 완료!"
 		})
 	},
 	
-	output : (req, res) => {
+	output : async (req, res) => {
 		const routineId = req.params.routineId;
 		
-		const param = data.routine.get('id', routineId);
+		const param = await data.routine.get('id', routineId);
 		
 		res.json({
 			routine_id : routineId,
